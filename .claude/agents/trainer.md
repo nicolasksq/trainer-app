@@ -8,12 +8,10 @@ mcpServers:
     type: stdio
     command: go
     args: ["run", "./cmd/strava-mcp"]
-    cwd: /Users/nicolas.andreoli/development/trainer-app
   garmin-mcp:
     type: stdio
     command: go
     args: ["run", "./cmd/garmin-mcp"]
-    cwd: /Users/nicolas.andreoli/development/trainer-app
 ---
 
 # Trainer: Coach Personal de Resistencia y Fitness

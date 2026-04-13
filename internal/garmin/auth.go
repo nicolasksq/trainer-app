@@ -100,6 +100,9 @@ func ssoLogin(email, password string) (string, error) {
 	defer resp.Body.Close()
 
 	respBody, _ := io.ReadAll(resp.Body)
+	if resp.StatusCode == http.StatusForbidden {
+		return "", fmt.Errorf("Garmin returned 403 Forbidden. This usually means CAPTCHA is required. Log in at https://connect.garmin.com in your browser first, then retry")
+	}
 	if resp.StatusCode != http.StatusOK {
 		return "", fmt.Errorf("SSO login failed (HTTP %d): %s", resp.StatusCode, string(respBody))
 	}

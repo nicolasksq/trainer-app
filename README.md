@@ -76,48 +76,22 @@ Trainer App is a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) a
 - [Go 1.25+](https://go.dev/dl/)
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
 - A Strava account with activities
-- A Garmin Connect account with a compatible device
+- A Garmin Connect account (optional but recommended)
 
-### 1. Clone the repository
+### Setup
 
 ```bash
 git clone https://github.com/nicolasksq/trainer-app.git
 cd trainer-app
+make setup
 ```
 
-### 2. Install dependencies
+The interactive setup wizard will guide you through everything: Strava OAuth, Garmin credentials, and verification.
 
-```bash
-go mod download
-```
-
-### 3. Set up Strava OAuth
-
-Create a Strava API application at [strava.com/settings/api](https://www.strava.com/settings/api). Set the callback domain to `localhost`.
-
-Copy the example environment file and fill in your credentials:
-
-```bash
-cp .env.example .env
-# Edit .env with your STRAVA_CLIENT_ID and STRAVA_CLIENT_SECRET
-```
-
-Run the OAuth flow to authorize access:
-
-```bash
-go run ./cmd/strava-mcp auth
-```
-
-This opens your browser for authorization. Tokens are saved to `~/.trainer-app/`.
-
-### 4. Set up Garmin credentials
-
-Add your Garmin Connect email and password to `.env`:
-
-```
-GARMIN_EMAIL=your-email@example.com
-GARMIN_PASSWORD=your-password
-```
+For manual setup or troubleshooting, see the detailed guides:
+- [Setup Guide](docs/SETUP.md) -- step-by-step installation
+- [Usage Guide](docs/USAGE.md) -- prompts, examples, and tips
+- [Troubleshooting](docs/TROUBLESHOOTING.md) -- common issues and fixes
 
 ### 5. Use the agent
 
@@ -153,10 +127,16 @@ trainer-app/
 │   └── agents/
 │       └── trainer.md          # Coach agent definition and prompt
 ├── cmd/
+│   ├── setup/
+│   │   └── main.go             # Interactive setup wizard
 │   ├── strava-mcp/
 │   │   └── main.go             # Strava MCP server entry point + OAuth flow
 │   └── garmin-mcp/
 │       └── main.go             # Garmin MCP server entry point
+├── docs/
+│   ├── SETUP.md                # Detailed setup guide
+│   ├── USAGE.md                # Usage guide with examples
+│   └── TROUBLESHOOTING.md      # Common issues and fixes
 ├── internal/
 │   ├── envutil/
 │   │   └── dotenv.go           # .env file loader
@@ -175,6 +155,7 @@ trainer-app/
 │       └── garmin_tools.go     # Garmin MCP tool definitions
 ├── .env.example                # Environment variable template
 ├── CLAUDE.md                   # Project conventions for Claude Code
+├── Makefile                    # Build, setup, and test commands
 ├── go.mod
 └── go.sum
 ```

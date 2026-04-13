@@ -20,6 +20,9 @@ func main() {
 	)
 
 	client := garmin.NewClient()
+	if os.Getenv("GARMIN_EMAIL") == "" || os.Getenv("GARMIN_PASSWORD") == "" {
+		fmt.Fprintf(os.Stderr, "Warning: GARMIN_EMAIL or GARMIN_PASSWORD not set. Run 'go run ./cmd/setup' to configure credentials.\n")
+	}
 	tools.RegisterGarminTools(s, client)
 
 	stdio := server.NewStdioServer(s)

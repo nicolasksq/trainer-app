@@ -51,6 +51,9 @@ func LoadToken() (*Token, error) {
 
 	data, err := os.ReadFile(path)
 	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, fmt.Errorf("no Strava token found. Run: go run ./cmd/setup (or: go run ./cmd/strava-mcp auth)")
+		}
 		return nil, fmt.Errorf("reading token file: %w", err)
 	}
 

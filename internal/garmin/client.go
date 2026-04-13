@@ -70,12 +70,12 @@ func (c *Client) EnsureAuthenticated() error {
 
 func (c *Client) fullLogin() error {
 	if c.email == "" || c.password == "" {
-		return fmt.Errorf("GARMIN_EMAIL and GARMIN_PASSWORD environment variables must be set")
+		return fmt.Errorf("missing GARMIN_EMAIL or GARMIN_PASSWORD. Run: go run ./cmd/setup")
 	}
 
 	ticket, err := ssoLogin(c.email, c.password)
 	if err != nil {
-		return fmt.Errorf("garmin SSO login failed: %w", err)
+		return fmt.Errorf("garmin SSO login failed: %w\nHint: if you see a 403, Garmin likely requires CAPTCHA. Log in at https://connect.garmin.com in your browser first, then retry", err)
 	}
 
 	token, err := exchangeTicket(ticket)

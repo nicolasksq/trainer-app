@@ -25,7 +25,7 @@ func main() {
 
 	client, err := strava.NewClient()
 	if err != nil {
-		log.Fatalf("Failed to create Strava client: %v", err)
+		log.Fatalf("Failed to create Strava client: %v\nHint: run 'go run ./cmd/setup' or 'go run ./cmd/strava-mcp auth' to configure credentials", err)
 	}
 
 	s := server.NewMCPServer("strava-mcp", "1.0.0")
