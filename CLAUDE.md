@@ -23,7 +23,7 @@ go run ./cmd/garmin-mcp                 # Run Garmin MCP server
 
 - `github.com/mark3labs/mcp-go` — MCP server SDK
 - `github.com/strava/go.strava` — Official Strava API client
-- `github.com/abrander/garmin-connect` — Garmin Connect client
+- Garmin Connect — Custom Go client using mobile SSO OAuth
 
 ## Conventions
 
@@ -31,3 +31,4 @@ go run ./cmd/garmin-mcp                 # Run Garmin MCP server
 - Error handling: return errors, don't panic
 - MCP tools return JSON-formatted content
 - Auth tokens stored in `~/.trainer-app/`
+- **Pace must always be displayed as min:sec per km (e.g. 4:30/km)**. Never use km/h or m/s when presenting data to the user. Garmin API uses m/s internally but all user-facing output must be converted to min/km.
